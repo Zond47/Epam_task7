@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="bookstore">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="book" type="Book" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="Book">
+        <xs:sequence>
+            <xs:element name="genre" type="Genre"/>
+            <xs:element name="author" type="Author"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="year" type="Year"/>
+            <xs:element minOccurs="0" name="series" type="Series"/>
+            <xs:element name="price" type="Price"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:int"/>
+    </xs:complexType>
+
+    <xs:simpleType name="Genre">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Fantasy"/>
+            <xs:enumeration value="Mystery"/>
+            <xs:enumeration value="Science Fiction"/>
+            <xs:enumeration value="Urban Fiction"/>
+            <xs:enumeration value="Thriller"/>
+            <xs:enumeration value="Historical"/>
+            <xs:enumeration value="Romance"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Year">
+        <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Author">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Series">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Price">
+        <xs:simpleContent>
+            <xs:extension base="xs:decimal">
+                <xs:attribute name="currency" type="CurrencyType"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:simpleType name="CurrencyType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="USD"/>
+            <xs:enumeration value="UAH"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
